@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taste Haven - Menu</title>
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BACKGROUND */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: -1;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: rgba(255, 112, 67, 0.9);
+  color: white;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+header h1 {
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+}
+header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* FILTERS */
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(6px);
+  flex-wrap: wrap;
+}
+.filters label {
+  background: #ffe0b2;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.filters label:hover {
+  background: #ffb74d;
+}
+.filters input[type="radio"] {
+  display: none;
+}
+.price-slider {
+  margin-left: auto;
+}
+.price-slider input {
+  accent-color: #ff7043;
+}
+
+/* MENU GRID */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* DISH CARD */
+.dish {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: 0.3s;
+}
+.dish:hover {
+  transform: translateY(-5px);
+}
+.dish img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.dish h2 {
+  padding: 0.8rem 1rem 0;
+  font-size: 1.2rem;
+}
+.ingredients {
+  padding: 0 1rem;
+  font-size: 0.9rem;
+  color: #666;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: 0.4s;
+}
+.dish:hover .ingredients {
+  opacity: 1;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+.price {
+  display: block;
+  padding: 0.5rem 1rem 1rem;
+  font-weight: bold;
+  color: #ff7043;
+}
+
+/* CHEF'S SPECIAL BADGE */
+.special::before {
+  content: "Chef's Special";
+  position: absolute;
+  top: 10px;
+  right: -40px;
+  background: #ff7043;
+  color: white;
+  padding: 5px 50px;
+  transform: rotate(45deg);
+  font-size: 0.8rem;
+  font-weight: bold;
+  animation: spinBadge 6s linear infinite;
+}
+@keyframes spinBadge {
+  0% { transform: rotate(45deg) scale(1); }
+  50% { transform: rotate(45deg) scale(1.05); }
+  100% { transform: rotate(45deg) scale(1); }
+}
+
+/* FIXED ORDER BUTTON */
+.order-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ff7043;
+  color: white;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+.order-btn:hover {
+  background: #f4511e;
+}
+.cart-counter {
+  background: white;
+  color: #ff7043;
+  border-radius: 50%;
+  padding: 0.3rem 0.6rem;
+  margin-left: 8px;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+/* FILTER FUNCTIONALITY (CSS-ONLY) */
+input[value="vegan"]:checked ~ main .dish:not(.vegan) { display: none; }
+input[value="gf"]:checked ~ main .dish:not(.gf) { display: none; }
+input[value="all"]:checked ~ main .dish { display: block; }
+
+/* SECTION DIVIDER */
+.divider {
+  text-align: center;
+  font-size: 2rem;
+  color: #ff7043;
+  margin: 1rem 0;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Taste Haven</h1>
+  <p>Fresh • Flavorful • Memorable</p>
+</header>
+
+<!-- FILTERS -->
+<section class="filters">
+  <label>
+    <input type="radio" name="diet" value="all" checked>
+    All
+  </label>
+  <label>
+    <input type="radio" name="diet" value="vegan">
+    Vegan
+  </label>
+  <label>
+    <input type="radio" name="diet" value="gf">
+    Gluten-Free
+  </label>
+  <div class="price-slider">
+    <label>Price Range</label>
+    <input type="range" min="5" max="50">
+  </div>
+</section>
+
+<!-- MENU GRID -->
+<main class="menu-grid">
+  <article class="dish vegan special">
+    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c" alt="Fresh Green Salad">
+    <h2>Green Garden Salad</h2>
+    <p class="ingredients">Lettuce, cucumber, avocado, lemon dressing</p>
+    <span class="price">$12</span>
+  </article>
+  
+  <article class="dish gf">
+    <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141" alt="Juicy Steak">
+    <h2>Grilled Ribeye</h2>
+    <p class="ingredients">Beef, garlic butter, herbs</p>
+    <span class="price">$28</span>
+  </article>
+
+  <article class="dish vegan">
+    <img src="https://images.unsplash.com/photo-1604908177070-dc1e940d1eaf" alt="Vegan Pasta">
+    <h2>Vegan Pesto Pasta</h2>
+    <p class="ingredients">Zucchini noodles, basil pesto, cherry tomatoes</p>
+    <span class="price">$15</span>
+  </article>
+  
+  <article class="dish gf special">
+    <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" alt="Chocolate Dessert">
+    <h2>Chocolate Lava Cake</h2>
+    <p class="ingredients">Dark chocolate, vanilla ice cream</p>
+    <span class="price">$10</span>
+  </article>
+</main>
+
+<!-- FIXED ORDER BUTTON -->
+<button class="order-btn">Order Now <span class="cart-counter">3</span></button>
+
+</body>
+</html>
